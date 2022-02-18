@@ -1,17 +1,30 @@
 import os
 import discord
+from discord.ext import commands
+
+description = '''An example bot to showcase the discord.ext.commands extension
+module.
+There are a number of utility commands being showcased here.'''
+
+client = commands.Bot(command_prefix='g!', description=description)
 
 T = os.environ['TOKEN']
-            
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print('Logged on as', self.user)
 
-    async def on_message(self,message):
-        if (message.channel.id == 702972566419144875 and message.author.id != self.user.id):
-            # chan = self.get_channel(702972566419144875)
-            await message.channel.send(f'message from {message.author.name} in {message.channel.name}:\n  {message.content}')
+@client.event
+async def on_ready():
+    print('Logged on as', client.user)
 
 
-client = MyClient()
+@client.command()
+async def fetch(ctx):
+    # 851855270685835264
+    # 702972566419144875
+    channel = client.get_channel(851855270685835264)
+    messages = await channel.history(limit=10).flatten()
+
+    for msg in messages:
+        if len(msg.embeds)>0:
+            embed = msg.embeds[0]
+            await ctx.channel.send(f"From {msg.guild}\n{embed.title} : {embed.description}")
+
 client.run(T)
