@@ -2,10 +2,7 @@ import os
 import discord
 from discord.ext import commands
 
-description = '''An example bot to showcase the discord.ext.commands extension
-module.
-There are a number of utility commands being showcased here.'''
-client = commands.Bot(command_prefix='g!', description=description)
+client = commands.Bot(command_prefix='g!')
 T = os.environ['TOKEN']
 
 for f in os.listdir("./cogs"):
@@ -14,7 +11,7 @@ for f in os.listdir("./cogs"):
 
 @client.event
 async def on_ready():
-    print('Logged on as', client.user)
+    print(f'Logged on as {client.user}\n\n\n')
 
 
 

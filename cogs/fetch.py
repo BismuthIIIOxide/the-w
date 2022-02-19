@@ -5,7 +5,7 @@ class Fetch(commands.Cog):
         self.client = client
 
     @commands.command
-    async def fetch(ctx):
+    async def fetch(self, ctx):
         # 851855270685835264
         # 702972566419144875
         channel = self.client.get_channel(851855270685835264)
