@@ -8,7 +8,7 @@ T = os.environ['TOKEN']
 
 @client.event
 async def on_ready():
-    print(f"Logged into {client.user} : {client.id}\n\n\n")
+    print(f"Logged into {client.user}\n\n\n")
 
 
 @client.command()
