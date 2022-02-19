@@ -15,3 +15,7 @@ class Fetch(commands.Cog):
             if len(msg.embeds)>0:
                 embed = msg.embeds[0]
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title} : {embed.description}")
+
+
+def setup(client):
+    client.add_cog(Fetch(client))
