@@ -25,7 +25,12 @@ On Message Event
 async def on_message(message):
     if message.author == client.user:
         return
-    if message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
+    if not message.guild and message.author.id == 193932229959876610:
+        if "say ok if" in message.content.lower() or "say" in message.content.lower():
+            return
+        await asyncio.sleep(1)
+        await message.channel.send('ok')
+    elif message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
         msg = message.content.lower()
         if message.author.id == 829844831710609441 or message.author.id == 367714419179913216:
             if (random.randint(1,5) == 5):
@@ -42,6 +47,7 @@ async def on_message(message):
                 await message.channel.send('https://imgur.com/aBUCsv2')
 
     await client.process_commands(message)
+
 
 '''
 Fetch Command
