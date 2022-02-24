@@ -17,7 +17,10 @@ async def on_ready():
 On Message Event
     For various goofs
 '''
-# 193932229959876610
+# 193932229959876610 
+# 878159432482177045 // meca
+# 829844831710609441 // jerry
+# 367714419179913216 // mako
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -29,7 +32,7 @@ async def on_message(message):
                 await message.reply("stfu")
 
         
-        if message.author.id == 193932229959876610:
+        if message.author.id == 878159432482177045:
             if (random.randint(1,10) == 10):
                 await message.reply("Rule 1/Rule2:\n(1)No bad opinions\n(2)Don't be unfunny\n(If you believe this was a mistake, DM me with details.)")
                 await message.delete()
