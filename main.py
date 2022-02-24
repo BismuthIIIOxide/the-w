@@ -3,6 +3,9 @@ import discord
 from discord.ext import commands
 import random
 import asyncio
+import requests
+import re
+
 
 client = commands.Bot(command_prefix='g!')
 client.remove_command('help')
@@ -45,7 +48,7 @@ async def on_message(message):
         if 'this' in msg:
             if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
                 await message.channel.send('https://imgur.com/aBUCsv2')
-
+        
     await client.process_commands(message)
 
 
@@ -64,9 +67,19 @@ async def fetch(ctx):
             embed = msg.embeds[0]
             if ('30' in embed.title) or ('30' in embed.description):
                 return
+
             await ctx.channel.send(
                 f"From {msg.guild}\n{embed.title}\n{embed.description}\n------------------"
             )
+            url = re.search("(?P<url>https?://[^\s]+)", embed.description).group("url")
+            req = requests.get(f"https://bypass.bot.nu/bypass2?url={url}")
+            try_byp = req.json()
+            if 'destination' in try_byp:
+                await ctx.channel.send(f"Linkvertise bypassed:\n{try_byp['destination']}")
+            else:
+                await ctx.channel.send("Linkvertise failed to bypass")
+                                       
+            
 
 
 client.run(TOKEN)
