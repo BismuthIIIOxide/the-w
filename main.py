@@ -5,7 +5,11 @@ import random
 import asyncio
 import requests
 import re
-
+def test(r,s): # thanks for the regex test, python.
+    if len(re.findall(r,s)) != 0:
+        return True
+    else:
+        False
 
 client = commands.Bot(command_prefix='g!')
 client.remove_command('help')
@@ -33,17 +37,23 @@ async def on_message(message):
             return
         await asyncio.sleep(1)
         await message.channel.send('ok')
+#########################################################
     elif message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
         msg = message.content.lower()
         if message.author.id == 829844831710609441 or message.author.id == 367714419179913216:
             if (random.randint(1,5) == 5):
                 await message.reply("stfu")
+                if (random.randint(1,5) == 5):
+                    await asyncio.sleep(0.2)
+                    await message.delete()
+                return
 
         
         if message.author.id == 878159432482177045:
-            if (random.randint(1,10) == 10):
-                await message.reply("Rule 1/Rule2:\n(1)No bad opinions\n(2)Don't be unfunny\n(If you believe this was a mistake, DM me with details.)")
+            if (random.randint(1,20) == 20):
+                await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
                 await message.delete()
+                return
         
         if 'this' in msg:
             if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
@@ -57,6 +67,7 @@ Fetch Command
     Just fetches the messages from 2PS
 '''
 @client.command()
+@commands.cooldown(1,25)
 async def fetch(ctx):
     # 851855270685835264
     # 702972566419144875
@@ -67,19 +78,27 @@ async def fetch(ctx):
             embed = msg.embeds[0]
             if ('30' in embed.title) or ('30' in embed.description):
                 return
-
-            await ctx.channel.send(
-                f"From {msg.guild}\n{embed.title}\n{embed.description}\n------------------"
-            )
+            
             url = re.search("(?P<url>https?://[^\s]+)", embed.description).group("url")
             req = requests.get(f"https://bypass.bot.nu/bypass2?url={url}")
             try_byp = req.json()
             if 'destination' in try_byp:
-                await ctx.channel.send(f"Linkvertise bypassed:\n{try_byp['destination']}")
+                
+                await ctx.channel.send(
+                    f"From {msg.guild}\n{embed.title}\n{try_byp['destination']}"
+                )
             else:
-                await ctx.channel.send("Linkvertise failed to bypass")
+                await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description} [Failed to bypass linkvertise]")
                                        
             
 
 
+
+'''
+Error Handeling
+'''
+@fetch.error
+async def command_name_error(ctx, err):
+    if isinstance(err, commands.CommandOnCooldown):
+        await ctx.send("stfu")
 client.run(TOKEN)
