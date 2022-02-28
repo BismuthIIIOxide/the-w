@@ -49,7 +49,7 @@ async def on_message(message):
                 return
 
         
-        if message.author.id == 878159432482177045:
+        if message.author.id == 878159432482177045 or message.author.id == 322221470979850253:
             if (random.randint(1,20) == 20):
                 await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
                 await message.delete()
