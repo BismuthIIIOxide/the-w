@@ -5,7 +5,7 @@ import random
 import asyncio
 import requests
 import re
-def test(r,s): # thanks for the regex test, python.
+def test(r,s):
     if len(re.findall(r,s)) != 0:
         return True
     else:
@@ -49,12 +49,11 @@ async def on_message(message):
                 return
 
         
-        if message.author.id == 878159432482177045 or message.author.id == 322221470979850253:
+        if message.author.id == 878159432482177045 or message.author.id == 322221470979850253 or message.id == 759522432918093878 or message.id == 193932229959876610:
             if (random.randint(1,20) == 20):
-                await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
+                # await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
                 await message.delete()
                 return
-        
         if 'this' in msg:
             if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
                 await message.channel.send('https://imgur.com/aBUCsv2')
