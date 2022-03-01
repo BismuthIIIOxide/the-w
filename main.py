@@ -1,6 +1,7 @@
 import os
 import discord
 from discord.ext import commands
+from discord.utils import get
 import random
 import asyncio
 import requests
@@ -53,6 +54,15 @@ async def on_message(message):
                 await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
                 await message.delete()
                 return
+        kaye = random.randint(1,30)
+        if (kaye == 1):
+            url = "https://api.kanye.rest"
+            r = requests.get(url)
+            quote = r.json()['quote']
+            await message.reply(f"\"{quote}\" - Kanye West")
+
+        if message.author.id == 921685903477452820:
+            await message.add_reaction('<:myassitches:948189191022456853')
       #  if 'this' in msg:
            # if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
                 # await message.channel.send('https://imgur.com/aBUCsv2')
