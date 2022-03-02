@@ -54,7 +54,7 @@ async def on_message(message):
                 await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
                 await message.delete()
                 return
-        kaye = random.randint(1,30)
+        kaye = random.randint(1,40)
         if (kaye == 1):
             url = "https://api.kanye.rest"
             r = requests.get(url)
@@ -85,8 +85,10 @@ async def fetch(ctx):
         if (len(msg.embeds) > 0 and msg.author.name == "Auto Upload Bot"):
             embed = msg.embeds[0]
             if ('30' in embed.title) or ('30' in embed.description):
+               return
+            if ("banned" in embed.title) or ("banned" in embed.description):
+                await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
                 return
-            
             url = re.search("(?P<url>https?://[^\s]+)", embed.description).group("url")
             req = requests.get(f"https://bypass.bot.nu/bypass2?url={url}")
             try_byp = req.json()
@@ -96,7 +98,7 @@ async def fetch(ctx):
                     f"From {msg.guild}\n{embed.title}\n{try_byp['destination']}"
                 )
             else:
-                await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description} [Failed to bypass linkvertise]")
+                await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
                                        
             
 
