@@ -1,7 +1,6 @@
 import os
 import discord
 from discord.ext import commands
-from discord.utils import get
 import random
 import asyncio
 import requests
@@ -31,13 +30,19 @@ On Message Event
 # 367714419179913216 // mako
 @client.event
 async def on_message(message):
+    mention = f'<@!{client.user.id}>'
     if message.author == client.user:
         return
-    if not message.guild and message.author.id == 193932229959876610:
-        if "say ok if" in message.content.lower() or "say" in message.content.lower():
-            return
+    if not message.guild:
+        chan = client.get_channel(949075853655015454)
         await asyncio.sleep(1)
-        await message.channel.send('ok')
+        await chan.send(f"DM From {message.author}:\n{message.content}")
+        return
+    if message.guild.id != 427546996178419712 or message.guild.id != 753255421887905834:
+        if (mention in message.content) or (client.user.mentioned_in(message)) or ("@everyone" in message.content) or ("@here" in message.content):
+            chan = client.get_channel(949075853655015454)
+            await chan.send(f"Ping from {message.author} in {message.guild}:\n{message.content}")
+    
 #########################################################
     elif message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
         msg = message.content.lower()
@@ -49,13 +54,12 @@ async def on_message(message):
                 return
 
         
-        if message.author.id == 878159432482177045 or message.author.id == 322221470979850253 or message.id == 759522432918093878:
-            if (random.randint(1,50) == 1):
-                await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
-                await message.delete()
-                return
-        kaye = random.randint(1,50)
-        if (kaye == 1):
+        if (random.randint(1,150) == 1):
+            await message.reply("Rule 1/Rule2/Rule3:\n(1)No bad opinions\n(2)Don't be unfunny\n(3)Be luckier\n(If you believe this was a mistake, DM me with details.)")
+            await message.delete()
+            return
+            
+        if (random.randint(1,100) == 1):
             url = "https://api.kanye.rest"
             r = requests.get(url)
             quote = r.json()['quote']
