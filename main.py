@@ -136,6 +136,19 @@ async def meme(ctx):
 
 
 '''
+Speak
+    just speaks whatever the user sends to
+    another discord
+'''
+@client.command()
+async def speak(ctx, *, message=None):
+    if message==None: 
+        return
+    chan = client.get_channel(807045984512507957)
+    
+    await chan.send(message)
+    
+'''
 Error Handeling
 '''
 @fetch.error
