@@ -1,20 +1,21 @@
 import os
-import discord
-from discord.ext import commands
+import discord; from discord.ext import commands
 import random
 import asyncio
 import requests
 import re
-def test(r,s):
-    if len(re.findall(r,s)) != 0:
-        return True
-    else:
-        False
+import asyncpraw
+TOKEN = os.environ['TOKEN']
+reddit = asyncpraw.Reddit(
+    client_id = os.environ['CLIENT_ID'],
+    client_secret = os.environ['CLIENT_SECRET'],
+    user_agent = "u/bbcdeepinmythroat"
+)
 
 client = commands.Bot(command_prefix='g!')
 client.remove_command('help')
-TOKEN = os.environ['TOKEN']
 
+    
 
 @client.event
 async def on_ready():
@@ -38,19 +39,13 @@ async def on_message(message):
         await asyncio.sleep(1)
         await chan.send(f"DM From {message.author}:\n{message.content}")
         return
-    if message.guild.id != 427546996178419712 or message.guild.id != 753255421887905834:
-        if (mention in message.content) or (client.user.mentioned_in(message)) or ("@everyone" in message.content) or ("@here" in message.content):
-            chan = client.get_channel(949075853655015454)
-            await chan.send(f"Ping from {message.author} in {message.guild}:\n{message.content}")
     
 #########################################################
-    elif message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
+    if message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
         msg = message.content.lower()
         if message.author.id == 829844831710609441 or message.author.id == 367714419179913216:
-            if (random.randint(1,10) == 1):
-                await message.reply("stfu")
-                if (random.randint(1,2) == 1):
-                    await message.delete()
+            if (random.randint(1,12) == 1):
+                await message.delete()
                 return
 
         
@@ -70,7 +65,10 @@ async def on_message(message):
       #  if 'this' in msg:
            # if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
                 # await message.channel.send('https://imgur.com/aBUCsv2')
-        
+    else:
+        if (mention in message.content) or (client.user.mentioned_in(message)) or ("@everyone" in message.content) or ("@here" in message.content):
+            chan = client.get_channel(949075853655015454)
+            await chan.send(f"Ping from {message.author} in {message.guild}:\n{message.content}")
     await client.process_commands(message)
 
 
@@ -105,7 +103,6 @@ async def fetch(ctx):
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
                                        
             
-
 '''
 Kanye
     I'm a genius!
@@ -116,13 +113,38 @@ async def kanye(ctx):
     r = requests.get(url)
     quote = r.json()['quote']
     await ctx.channel.send(f'\"{quote}\" - Kanye West')
-    
+
+
+'''
+Reddit
+    dank meme jojo joylen try not to laugh
+'''
+@client.command(aliases=['memes'])
+@commands.cooldown(1,2)
+async def meme(ctx):
+    subs = ["ShitPostCrusaders", 
+            "animemes", 
+            "furry_irl", 
+            "wholesomeanimemes"]
+    if (random.randint(1,10) == 1):
+        subs.append("furry_irl")
+    sub = await reddit.subreddit(random.choice(subs))
+    submissions = [submission async for submission in sub.hot(limit=35) if not submission.stickied]
+
+    post = submissions[random.randint(0, len(submissions) - 1)]
+    await ctx.channel.send(f'{post.title} ({post.score} upvotes) {post.url}')
+
 
 '''
 Error Handeling
 '''
 @fetch.error
-async def command_name_error(ctx, err):
+async def fetch_error(ctx, err):
     if isinstance(err, commands.CommandOnCooldown):
-        await ctx.send("stfu")
+        return
+
+@meme.error
+async def meme_error(ctx, err):
+    if isinstance(err,commands.CommandOnCooldown):
+        return
 client.run(TOKEN)
