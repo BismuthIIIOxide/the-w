@@ -15,7 +15,7 @@ reddit = asyncpraw.Reddit(
 client = commands.Bot(command_prefix='g!')
 client.remove_command('help')
 
-    
+channelID = 925876223878508694
 
 @client.event
 async def on_ready():
@@ -35,8 +35,7 @@ async def on_message(message):
     if message.author == client.user:
         return
     if not message.guild:
-        chan = client.get_channel(949075853655015454)
-        await asyncio.sleep(1)
+        chan = client.get_channel(925876223878508694)
         await chan.send(f"DM From {message.author}:\n{message.content}")
         return
     
@@ -65,10 +64,6 @@ async def on_message(message):
       #  if 'this' in msg:
            # if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
                 # await message.channel.send('https://imgur.com/aBUCsv2')
-    else:
-        if (mention in message.content) or (client.user.mentioned_in(message)) or ("@everyone" in message.content) or ("@here" in message.content):
-            chan = client.get_channel(949075853655015454)
-            await chan.send(f"Ping from {message.author} in {message.guild}:\n{message.content}")
     await client.process_commands(message)
 
 
@@ -142,12 +137,20 @@ Speak
 '''
 @client.command()
 async def speak(ctx, *, message=None):
+    global channelID
     if message==None: 
         return
-    chan = client.get_channel(807045984512507957)
+    chan = client.get_channel(channelID)
     
     await chan.send(message)
-    
+
+@client.command(aliases=['channel', 'chan'])
+async def setChannel(ctx, *, id=None):
+    global channelID
+    if ctx.message.author.id != 193932229959876610:
+        return
+
+    channelID = int(id)
 '''
 Error Handeling
 '''
