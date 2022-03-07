@@ -31,17 +31,11 @@ On Message Event
 # 367714419179913216 // mako
 @client.event
 async def on_message(message):
-    mention = f'<@!{client.user.id}>'
     if message.author == client.user:
-        return
-    if not message.guild:
-        chan = client.get_channel(925876223878508694)
-        await chan.send(f"DM From {message.author}:\n{message.content}")
         return
     
 #########################################################
     if message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
-        msg = message.content.lower()
         if message.author.id == 829844831710609441 or message.author.id == 367714419179913216:
             if (random.randint(1,12) == 1):
                 await message.delete()
@@ -61,6 +55,10 @@ async def on_message(message):
 
         if message.author.id == 921685903477452820:
             await message.add_reaction('<:myassitches:948189191022456853')
+
+        if message.channel.id == 950392976843096125:
+            chan = client.get_channel(channelID)
+            await chan.send(message.content)
       #  if 'this' in msg:
            # if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
                 # await message.channel.send('https://imgur.com/aBUCsv2')
