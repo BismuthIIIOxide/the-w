@@ -58,6 +58,23 @@ async def on_message(message):
                 # await message.channel.send('https://imgur.com/aBUCsv2')
     await client.process_commands(message)
 
+'''
+Help
+    Took too long to come, will take even longer to be used
+'''
+@client.command(aliases=['cmds'])
+@commands.cooldown(1,2)
+async def help(ctx):
+    await ctx.channel.send(
+        """g!fetch
+        g!kanye, g!ye
+        g!meme
+        g!speak <text>
+        g!food
+        
+        loser.
+        """
+    )
 
 '''
 Fetch Command
@@ -136,13 +153,30 @@ async def speak(ctx, *, message=None):
     
     await chan.send(message)
 
-@client.command(aliases=['channel', 'chan'])
+@client.command(aliases=['channel', 'chan']) # this is an easier way to set a target channel for "Speak"
 async def setChannel(ctx, *, id=None):
     global channelID
     if ctx.message.author.id != 193932229959876610:
         return
 
     channelID = int(id)
+
+'''
+Food
+    ruh
+'''
+@client.command()
+@commands.cooldown(1,2)
+async def food(ctx, *, instructions=False):
+    req = requests.get("https://www.themealdb.com/api/json/v1/1/random.php")
+    req = req.json()
+    meal = req['meals'][0]
+    
+    await ctx.channel.send(f"{meal['strMeal']}\n{meal['strMealThumb']}")
+    if instructions==True:
+        await ctx.channel.send(f"{meal['strInstructions']}\n{meal['strSource']}")
+
+
 '''
 Error Handeling
 '''
@@ -153,6 +187,16 @@ async def fetch_error(ctx, err):
 
 @meme.error
 async def meme_error(ctx, err):
+    if isinstance(err,commands.CommandOnCooldown):
+        return
+
+@help.error
+async def help_error(ctx, err):
+    if isinstance(err,commands.CommandOnCooldown):
+        return
+
+@food.error
+async def food_error(ctx, err):
     if isinstance(err,commands.CommandOnCooldown):
         return
 client.run(TOKEN)
