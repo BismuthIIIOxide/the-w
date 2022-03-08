@@ -41,7 +41,7 @@ async def on_message(message):
                 await message.delete()
                 return
 
-        if (random.randint(1,250) == 1):
+        if (random.randint(1,500000) == 1):
             url = "https://api.kanye.rest"
             r = requests.get(url)
             quote = r.json()['quote']
