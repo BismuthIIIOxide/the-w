@@ -24,6 +24,7 @@ discord.py
 discord.py-self==1.9.1
 distlib==0.3.3
 docopt==0.6.2
+Faker 
 filelock==3.3.2
 future==0.18.2
 html5lib==1.1
@@ -46,12 +47,14 @@ platformdirs==2.4.0
 pluggy==0.13.1
 poetry==1.1.11
 poetry-core==1.0.7
+praw 
 prawcore 
 ptyprocess==0.7.0
 pycparser==2.21
 pyflakes==2.1.1
 pylev==1.4.0
 pyparsing==3.0.5
+python-dateutil==2.8.2
 python-jsonrpc-server==0.3.2
 python-language-server==0.31.10
 requests 

@@ -10,6 +10,7 @@ numpy = "^1.22.2"
 discord = "^1.7.3"
 praw = "^7.5.0"
 requests = "^2.27.1"
+Faker = "^13.3.2"
 
 [tool.poetry.dev-dependencies]
 

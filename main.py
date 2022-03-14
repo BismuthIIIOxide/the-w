@@ -4,6 +4,7 @@ import random
 import requests
 import re
 import asyncpraw
+from faker import Faker; from faker.providers import internet
 TOKEN = os.environ['TOKEN']
 reddit = asyncpraw.Reddit(
     client_id = os.environ['CLIENT_ID'],
@@ -97,6 +98,7 @@ async def fetch(ctx):
             url = re.search("(?P<url>https?://[^\s]+)", embed.description).group("url")
             req = requests.get(f"https://bypass.bot.nu/bypass2?url={url}")
             try_byp = req.json()
+            print(try_byp['destination'])
             if 'destination' in try_byp:
                 
                 await ctx.channel.send(
@@ -176,6 +178,27 @@ async def food(ctx, *, instructions=False):
         await ctx.channel.send(f"{meal['strInstructions']}\n{meal['strSource']}")
 
 
+'''
+Troll
+    I love faker!
+'''
+@client.command()
+async def troll(ctx, user: discord.User = None):
+    if user == None:
+        return
+    fake = Faker('en_US')
+    Faker.seed(user.id)
+    
+    if user.id == 193932229959876610:
+        await ctx.channel.send("sorry i cant hack anonymous")
+        return
+    await ctx.channel.send(f"""{fake.first_name_male()} {fake.last_name_male()}
+                           
+{fake.ipv4_private()}
+{fake.address()}
+                           
+SSN: {fake.ssn()}
+""")
 '''
 Error Handeling
 '''
