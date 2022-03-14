@@ -5,7 +5,7 @@ import requests
 import re
 import asyncpraw
 from faker import Faker; from faker.providers import internet
-TOKEN = 
+TOKEN = os.environ['TOKEN']
 reddit = asyncpraw.Reddit(
     client_id = os.environ['CLIENT_ID'],
     client_secret = os.environ['CLIENT_SECRET'],
