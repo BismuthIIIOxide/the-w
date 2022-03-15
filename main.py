@@ -12,7 +12,7 @@ reddit = asyncpraw.Reddit(
     user_agent = os.environ['USER_AGENT']
 )
 
-client = commands.Bot(command_prefix='g!')
+client = commands.Bot(command_prefix='g!', case_insensitive=True)
 client.remove_command('help')
 
 channelID = 925876223878508694
@@ -202,13 +202,15 @@ async def meme_error(ctx, err):
     if isinstance(err,commands.CommandOnCooldown):
         return
 
-@help.error
-async def help_error(ctx, err):
-    if isinstance(err,commands.CommandOnCooldown):
-        return
-
 @food.error
 async def food_error(ctx, err):
     if isinstance(err,commands.CommandOnCooldown):
         return
+
+@troll.error
+async def troll_error(ctx,err):
+    if isinstance(err,commands.UserNotFound):
+        return
+
+        
 client.run(TOKEN)
