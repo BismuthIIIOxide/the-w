@@ -145,9 +145,7 @@ async def meme(ctx, *, red=None):
     post = submissions[random.randint(0, len(submissions) - 1)]
     await ctx.channel.send(f'{post.title} ({post.score} upvotes) {post.url}')
 
-print(   s S  S S
-     
-    if)
+
 
 '''
 Speak
@@ -230,4 +228,4 @@ async def help_error(ctx, err):
 async def food_error(ctx, err):
     if isinstance(err,commands.CommandOnCooldown):
         return
-client.run(TOKEN)
+client.run("the WIN!!!!!")
