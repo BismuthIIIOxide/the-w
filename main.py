@@ -126,19 +126,28 @@ Reddit
 '''
 @client.command(aliases=['memes'])
 @commands.cooldown(1,2)
-async def meme(ctx):
-    subs = ["ShitPostCrusaders", 
-            "animemes", 
-            "furry_irl", 
-            "wholesomeanimemes"]
-    if (random.randint(1,10) == 1):
-        subs.append("furry_irl")
-    sub = await reddit.subreddit(random.choice(subs))
+async def meme(ctx, *, red=None):
+    if red == None:
+        subs = ["ShitPostCrusaders", 
+                "animemes", 
+                "furry_irl", 
+                "wholesomeanimemes"]
+        if (random.randint(1,10) == 1):
+            subs.append("furry_irl")
+        sub = await reddit.subreddit(random.choice(subs))
+    elif 'r/' in red:
+        if '/r/' in red: return
+        red.replace('r/','')
+        sub = await reddit.subreddit(red)
+    
     submissions = [submission async for submission in sub.hot(limit=35) if not submission.stickied]
 
     post = submissions[random.randint(0, len(submissions) - 1)]
     await ctx.channel.send(f'{post.title} ({post.score} upvotes) {post.url}')
 
+print(   s S  S S
+     
+    if)
 
 '''
 Speak
