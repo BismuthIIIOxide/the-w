@@ -58,24 +58,7 @@ async def on_message(message):
                 # await message.channel.send('https://imgur.com/aBUCsv2')
     await client.process_commands(message)
 
-'''
-Help
-    Took too long to come, will take even longer to be used
-'''
-@client.command(aliases=['cmds'])
-@commands.cooldown(1,2)
-async def help(ctx):
-    await ctx.channel.send(
-        """g!fetch
-        g!kanye, g!ye
-        g!meme
-        g!speak <text>
-        g!food
-        
-        loser.
-        """
-    )
-
+    
 '''
 Fetch Command
     Just fetches the messages from 2PS
@@ -127,7 +110,10 @@ Reddit
 @client.command(aliases=['memes'])
 @commands.cooldown(1,2)
 async def meme(ctx, *, red=None):
-    if red == None:
+    if 'r/' in red:
+        red = red.replace('r/','')
+        sub = await reddit.subreddit(red)
+    else:
         subs = ["ShitPostCrusaders", 
                 "animemes", 
                 "furry_irl", 
@@ -135,10 +121,7 @@ async def meme(ctx, *, red=None):
         if (random.randint(1,10) == 1):
             subs.append("furry_irl")
         sub = await reddit.subreddit(random.choice(subs))
-    elif 'r/' in red:
-        if '/r/' in red: return
-        red.replace('r/','')
-        sub = await reddit.subreddit(red)
+
     
     submissions = [submission async for submission in sub.hot(limit=35) if not submission.stickied]
 
@@ -228,4 +211,4 @@ async def help_error(ctx, err):
 async def food_error(ctx, err):
     if isinstance(err,commands.CommandOnCooldown):
         return
-client.run("the WIN!!!!!")
+client.run(TOKEN)
