@@ -64,7 +64,7 @@ Fetch Command
     Just fetches the messages from 2PS
 '''
 @client.command()
-@commands.cooldown(1,25)
+@commands.cooldown(1,5)
 async def fetch(ctx):
     # 851855270685835264
     # 702972566419144875
@@ -73,15 +73,17 @@ async def fetch(ctx):
     for msg in messages:
         if (len(msg.embeds) > 0 and msg.author.name == "Auto Upload Bot"):
             embed = msg.embeds[0]
-            if ('30' in embed.title) or ('30' in embed.description):
+            print(embed.title)
+            if ('30' in embed.title):
                return
             if ("banned" in embed.title) or ("banned" in embed.description):
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
                 return
             url = re.search("(?P<url>https?://[^\s]+)", embed.description).group("url")
-            req = requests.get(f"https://bypass.bot.nu/bypass2?url={url}")
+            req = requests.get(f"https://vacant-curtly-composure.herokuapp.com/bypass2?url={url}")
+            print(req)
             try_byp = req.json()
-            print(try_byp['destination'])
+            print(try_byp)
             if 'destination' in try_byp:
                 
                 await ctx.channel.send(
@@ -107,7 +109,7 @@ async def kanye(ctx):
 Reddit
     dank meme jojo joylen try not to laugh
 '''
-@client.command(aliases=['memes'])
+@client.command(aliases=['memes', 'reddit'])
 @commands.cooldown(1,2)
 async def meme(ctx, *, red=None):
     if 'r/' in red:
@@ -182,6 +184,9 @@ async def troll(ctx, user: discord.User = None):
     if user.id == 193932229959876610:
         await ctx.channel.send("sorry i cant hack anonymous")
         return
+    if user.id == 695728013626835055: 
+        return
+        
     await ctx.channel.send(f"""{fake.first_name_male()} {fake.last_name_male()}
                            
 {fake.ipv4_private()}
