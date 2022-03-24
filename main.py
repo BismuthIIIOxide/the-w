@@ -40,7 +40,7 @@ async def on_message(message):
             if (random.randint(1,12) == 1):
                 await message.delete()
                 return
-
+                
         if (random.randint(1,500000) == 1):
             url = "https://api.kanye.rest"
             r = requests.get(url)
@@ -187,13 +187,33 @@ async def troll(ctx, user: discord.User = None):
     if user.id == 695728013626835055: 
         return
         
-    await ctx.channel.send(f"""{fake.first_name_male()} {fake.last_name_male()}
+    await ctx.channel.send(
+        f"""
+{fake.first_name_male()} {fake.last_name_male()}
                            
-{fake.ipv4_private()}
-{fake.address()}
+IP: {fake.ipv4_private()}
+Address: {fake.address()}
                            
 SSN: {fake.ssn()}
-""")
+
+Credit Card: {fake.credit_card_number()} / {fake.credit_card_expire()} / {fake.credit_card_security_code()}
+"""
+    )
+
+'''
+Ban
+    real ban?!
+'''
+@client.command()
+async def ban(ctx, user: discord.User = None, *reason: str):
+    if user == None:
+        return
+    if len(reason) == 0:
+        await ctx.channel.send(f"Banned {user.name} for: No reason")
+        return
+    await ctx.channel.send(f"Banned {user.name} for: {''.join(reason)}")
+    
+
 '''
 Error Handeling
 '''
