@@ -36,6 +36,7 @@ async def on_message(message):
     
 #########################################################
     if message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
+        #print(message.content)
         if message.author.id == 829844831710609441 or message.author.id == 367714419179913216:
             if (random.randint(1,12) == 1):
                 await message.delete()
@@ -81,10 +82,9 @@ async def fetch(ctx):
                 return
             url = re.search("(?P<url>https?://[^\s]+)", embed.description).group("url")
             req = requests.get(f"https://vacant-curtly-composure.herokuapp.com/bypass2?url={url}")
-            print(req)
             try_byp = req.json()
-            print(try_byp)
-            if 'destination' in try_byp:
+
+            if req.response_code != 503 and 'destination' in try_byp:
                 
                 await ctx.channel.send(
                     f"From {msg.guild}\n{embed.title}\n{try_byp['destination']}"
@@ -212,8 +212,39 @@ async def ban(ctx, user: discord.User = None, *reason: str):
         await ctx.channel.send(f"Banned {user.name} for: No reason")
         return
     await ctx.channel.send(f"Banned {user.name} for: {''.join(reason)}")
-    
 
+'''
+Eval
+    Worst idea ever ?
+'''  
+@client.command(aliases=['eval'])
+async def test(ctx, *args: str):
+    
+    if ctx.message.author.id != 193932229959876610: 
+        return
+
+    await ctx.channel.send(f"{eval(args)}")
+
+'''ok
+ok
+    ok
+'''
+@client.command()
+@commands.is_nsfw()
+@commands.cooldown(1,2)
+
+async def hello(ctx, *args):
+    args = '+'.join(args)
+    if 'cub' in args or 'young' in args or 'child' in args:
+        await ctx.channel.send("fuck you")
+        return
+    print(args)
+    print(f"https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&tags={args}+-young+-cub")
+    req = requests.get(f"https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&tags={args}+-young+-cub")
+    print(req)
+    req = req.json()
+
+    await ctx.channel.send("hi")
 '''
 Error Handeling
 '''
@@ -237,5 +268,10 @@ async def troll_error(ctx,err):
     if isinstance(err,commands.UserNotFound):
         return
 
+@hello.error
+async def hello_error(ctx,err):
+    if isinstance(err, commands.NSFWChannelRequired):
+        await ctx.channel.send("not nsfw channel")
+        return
         
 client.run(TOKEN)
