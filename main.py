@@ -110,7 +110,7 @@ Reddit
     dank meme jojo joylen try not to laugh
 '''
 @client.command(aliases=['memes', 'reddit'])
-@commands.cooldown(1,2)
+@commands.cooldown(1,0.25)
 async def meme(ctx, *, red=None):
     if 'r/' in red:
         red = red.replace('r/','')
