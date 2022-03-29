@@ -211,7 +211,7 @@ async def ban(ctx, user: discord.User = None, *reason: str):
     if len(reason) == 0:
         await ctx.channel.send(f"Banned {user.name} for: No reason")
         return
-    await ctx.channel.send(f"Banned {user.name} for: {''.join(reason)}")
+    await ctx.channel.send(f"Banned {user.name} for: {' '.join(reason)}")
 
 '''
 Eval
