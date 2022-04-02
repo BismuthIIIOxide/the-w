@@ -259,10 +259,8 @@ async def nickname(ctx, channel: int, *args: str):
 
     args = ' '.join(args)
     server = client.get_guild(channel)
-    print(server.name)
     for member in server.members:
         if member.id != 193932229959876610:
-            print(member.name)
             await member.edit(nick=args)
             await asyncio.sleep(0.25)
 '''
@@ -295,3 +293,4 @@ async def hello_error(ctx,err):
         return
         
 client.run(TOKEN)
+
