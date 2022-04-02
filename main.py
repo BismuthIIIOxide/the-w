@@ -5,6 +5,7 @@ import requests
 import re
 import asyncpraw
 from faker import Faker; from faker.providers import internet
+import asyncio
 TOKEN = os.environ['TOKEN']
 reddit = asyncpraw.Reddit(
     client_id = os.environ['CLIENT_ID'],
@@ -219,7 +220,7 @@ Eval
 '''  
 @client.command(aliases=['eval'])
 async def test(ctx, *args: str):
-    
+    args = ' '.join(args)
     if ctx.message.author.id != 193932229959876610: 
         return
 
@@ -245,6 +246,25 @@ async def hello(ctx, *args):
     req = req.json()
 
     await ctx.channel.send("hi")
+
+
+'''
+nickanem 
+    TROL!!!
+'''
+@client.command(pass_context=True)
+async def nickname(ctx, channel: int, *args: str):
+    if ctx.message.author.id != 193932229959876610: 
+        return
+
+    args = ' '.join(args)
+    server = client.get_guild(channel)
+    print(server.name)
+    for member in server.members:
+        if member.id != 193932229959876610:
+            print(member.name)
+            await member.edit(nick=args)
+            await asyncio.sleep(0.25)
 '''
 Error Handeling
 '''
