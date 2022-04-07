@@ -7,6 +7,7 @@ import asyncpraw
 from faker import Faker; from faker.providers import internet
 import asyncio
 TOKEN = os.environ['TOKEN']
+print( ERROR LOL !!!!!!!!!!!!!!!!)
 reddit = asyncpraw.Reddit(
     client_id = os.environ['CLIENT_ID'],
     client_secret = os.environ['CLIENT_SECRET'],
@@ -230,22 +231,6 @@ async def test(ctx, *args: str):
 ok
     ok
 '''
-@client.command()
-@commands.is_nsfw()
-@commands.cooldown(1,2)
-
-async def hello(ctx, *args):
-    args = '+'.join(args)
-    if 'cub' in args or 'young' in args or 'child' in args:
-        await ctx.channel.send("fuck you")
-        return
-    print(args)
-    print(f"https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&tags={args}+-young+-cub")
-    req = requests.get(f"https://api.rule34.xxx/index.php?page=dapi&s=post&q=index&json=1&tags={args}+-young+-cub")
-    print(req)
-    req = req.json()
-
-    await ctx.channel.send("hi")
 
 
 '''
@@ -285,12 +270,12 @@ async def food_error(ctx, err):
 async def troll_error(ctx,err):
     if isinstance(err,commands.UserNotFound):
         return
-
+'''
 @hello.error
 async def hello_error(ctx,err):
     if isinstance(err, commands.NSFWChannelRequired):
         await ctx.channel.send("not nsfw channel")
         return
-        
+   '''     
 client.run(TOKEN)
 
