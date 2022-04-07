@@ -7,7 +7,6 @@ import asyncpraw
 from faker import Faker; from faker.providers import internet
 import asyncio
 TOKEN = os.environ['TOKEN']
-print( ERROR LOL !!!!!!!!!!!!!!!!)
 reddit = asyncpraw.Reddit(
     client_id = os.environ['CLIENT_ID'],
     client_secret = os.environ['CLIENT_SECRET'],
@@ -248,6 +247,19 @@ async def nickname(ctx, channel: int, *args: str):
         if member.id != 193932229959876610:
             await member.edit(nick=args)
             await asyncio.sleep(0.25)
+
+@client.command(pass_context=True)
+async def removenick(ctx,channel: int):
+    if ctx.message.author.id != 193932229959876610: 
+        return
+
+    
+    server = client.get_guild(channel)
+    for member in server.members:
+        if member.id != 193932229959876610:   
+            await member.edit(nick=None)
+            await asyncio.sleep(0.25)
+    
 '''
 Error Handeling
 '''
