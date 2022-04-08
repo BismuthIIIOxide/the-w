@@ -38,8 +38,8 @@ async def on_message(message):
 #########################################################
     if message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
         #print(message.content)
-        if message.author.id == 829844831710609441 or message.author.id == 367714419179913216:
-            if (random.randint(1,12) == 1):
+        if message.author.id == 829844831710609441: # This is jerry
+            if (random.randint(1,5) == 1):
                 await message.delete()
                 return
                 
