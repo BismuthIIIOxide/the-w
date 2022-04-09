@@ -76,21 +76,24 @@ async def fetch(ctx):
         if (len(msg.embeds) > 0 and msg.author.name == "Auto Upload Bot"):
             embed = msg.embeds[0]
             print(embed.title)
-            if ('30' in embed.title):
-               return
+            if ('3' in embed.title):
+                print(f"passed {embed.title}\n")
+                continue
             if ("banned" in embed.title) or ("banned" in embed.description):
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
                 return
+            
             url = re.search("(?P<url>https?://[^\s]+)", embed.description).group("url")
-            req = requests.get(f"https://vacant-curtly-composure.herokuapp.com/bypass2?url={url}")
+            await ctx.channel.send(f"1 trying bypass on {url}")
+            req = requests.get(f"https://bypass.bot.nu/bypass2?url={url}")
+            print(req)
             try_byp = req.json()
-
-            if req.response_code != 503 and 'destination' in try_byp:
-                
+            if 'destination' in try_byp:
                 await ctx.channel.send(
                     f"From {msg.guild}\n{embed.title}\n{try_byp['destination']}"
                 )
             else:
+                print('failed')
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
                                        
             
