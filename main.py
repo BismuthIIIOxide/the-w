@@ -21,6 +21,9 @@ channelID = 925876223878508694
 @client.event
 async def on_ready():
     print(f"Logged into {client.user}\n##########")
+    
+    chan = client.get_channel(channelID)
+    await chan.send("hacker mode..... ON")
 
 '''
 On Message Event
