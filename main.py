@@ -117,7 +117,7 @@ Reddit
 @client.command(aliases=['memes', 'reddit'])
 @commands.cooldown(1,0.25)
 async def meme(ctx, *, red=None):
-    if 'r/' in red:
+    if 'r/' in red or red != None:
         red = red.replace('r/','')
         sub = await reddit.subreddit(red)
     else:
