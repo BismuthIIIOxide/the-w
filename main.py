@@ -174,7 +174,17 @@ async def food(ctx, *, instructions=False):
     if instructions==True:
         await ctx.channel.send(f"{meal['strInstructions']}\n{meal['strSource']}")
 
+'''
+Punish
+    psuedo ban ig
+'''
+@client.command()
+@commands.has_role("Mini Boss")
+async def punish(ctx, user: discord.User = None):
+    if user == None:
+        return
 
+    await user.add_roles(discord.utils.get(user.guild.roles, id=938131516947578940))
 '''
 Troll
     I love faker!
