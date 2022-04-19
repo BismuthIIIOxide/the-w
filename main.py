@@ -4,6 +4,7 @@ import random
 import requests
 import re
 import asyncpraw
+import scrapetube
 from faker import Faker; from faker.providers import internet
 import asyncio
 TOKEN = os.environ['TOKEN']
@@ -12,6 +13,11 @@ reddit = asyncpraw.Reddit(
     client_secret = os.environ['CLIENT_SECRET'],
     user_agent = os.environ['USER_AGENT']
 )
+videos = scrapetube.get_channel("UCVepIJedg6BMQeSgjPY4e6A")
+videos = list(videos)
+videos2 = scrapetube.get_channel("UCvcLCMmInjvU_p7FEePAo0g")
+videos2 = list(videos2)
+print('loaded everything')
 
 client = commands.Bot(command_prefix='g!', case_insensitive=True)
 client.remove_command('help')
@@ -37,7 +43,8 @@ On Message Event
 async def on_message(message):
     if message.author == client.user:
         return
-    
+    if not message.guild.id:
+        return
 #########################################################
     if message.guild.id == 427546996178419712 or message.guild.id == 753255421887905834:
         #print(message.content)
@@ -233,8 +240,17 @@ async def test(ctx, *args: str):
 ok
     ok
 '''
-
-
+@client.command()
+async def crazy(ctx):
+    global videos
+    global videos2
+    r = random.randint(1,2)
+    if r == 1: 
+        selected = videos 
+    else: 
+        selected = videos2
+    place = random.randint(0,len(selected))
+    await ctx.channel.send(f"https://www.youtube.com/watch?v={selected[place]['videoId']}")
 '''
 nickanem 
     TROL!!!
