@@ -8,9 +8,7 @@ TOKEN = os.environ['TOKEN']
 
 print('loaded everything')
 
-client = commands.Bot(command_prefix='g!', case_insensitive=True)
-client.remove_command('help')
-
+client = commands.Bot(command_prefix='g!')
 channelID = 925876223878508694
 
 @client.event
