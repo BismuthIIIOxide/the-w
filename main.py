@@ -42,8 +42,8 @@ async def fetch(ctx):
     for msg in messages:
         if (len(msg.embeds) > 0 and msg.author.name == "Auto Upload Bot"):
             embed = msg.embeds[0]
-            if ('3' in embed.title):
-                continue
+            #if ('3' in embed.title):
+                #continue
             if ("banned" in embed.title) or ("banned" in embed.description):
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
                 return
