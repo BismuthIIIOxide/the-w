@@ -7,7 +7,7 @@ TOKEN = os.environ['TOKEN']
 
 print('loaded everything')
 
-client = commands.Bot(command_prefix='g!', self_bot=True)
+client = commands.Bot(command_prefix='g!')
 channelID = 925876223878508694
 
 @client.event
@@ -61,5 +61,5 @@ async def fetch(ctx):
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
 
 
-client.run(TOKEN)
+client.run(TOKEN, bot=False)
 
