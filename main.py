@@ -73,5 +73,5 @@ async def fetch(ctx):
                 await ctx.channel.send(f"From {msg.guild}\n{embed.title}\n{embed.description}")
 
 
-client.run(TOKEN, bot=False)
+client.run(TOKEN)
 
