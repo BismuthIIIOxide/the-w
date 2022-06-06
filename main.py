@@ -1,15 +1,13 @@
 import os
 #import discord; 
 from discord.ext import commands
-import random
 import requests
 import re
-import asyncio
 TOKEN = os.environ['TOKEN']
 
 print('loaded everything')
 
-client = commands.Bot(command_prefix='g!')
+client = commands.Bot(command_prefix='g!', self_bot=True)
 channelID = 925876223878508694
 
 @client.event
