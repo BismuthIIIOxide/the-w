@@ -26,7 +26,11 @@ On Message Event
 # 829844831710609441 // jerry
 # 367714419179913216 // mako
 
-    
+
+@client.command()
+async def test(ctx):
+    print("hello")
+    await ctx.channel.send("hi")
 '''
 Fetch Command
     Just fetches the messages from 2PS
