@@ -1,5 +1,5 @@
 import os
-#import discord; 
+import discord; 
 from discord.ext import commands
 import requests
 import re
@@ -26,6 +26,18 @@ On Message Event
 # 829844831710609441 // jerry
 # 367714419179913216 // mako
 
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+    if not message.guild.id:
+        return
+    if message.channel.id == channelID:
+        await message.channel.send('I HATE YOU')
+      #  if 'this' in msg:
+           # if message.author.id != 829844831710609441 or message.author.id != 193932229959876610 or message.author.id != 878159432482177045 or message.author.id != 367714419179913216:
+                # await message.channel.send('https://imgur.com/aBUCsv2')
+    await client.process_commands(message)
 
 @client.command()
 async def test(ctx):
